@@ -1,16 +1,56 @@
 # Create Lomi plugin
 
-`create-lomi-plugin <directory> --id author.name --name "Name" --template panel`
+The standalone generator for Lomi plugin projects. It owns the panel, sidebar,
+command and theme templates. [plugin-tools](https://github.com/lomi-dev/plugin-tools)
+owns the CLI; [plugin-sdk](https://github.com/lomi-dev/plugin-sdk) owns the contract.
+Each repository has its own version and release workflow.
 
-Templates: panel, sidebar, command, theme. In a terminal the generator asks for
-missing answers. Without a terminal, ID and display name are required. The panel
-is the default template. `--json` emits schemaVersion 1 without prompts.
+Use Node 22.14+ and pnpm 11.25.0:
 
+```sh
+pnpm create lomi-plugin@0.1.0-alpha.2 my-plugin --id example.my-plugin --name "My plugin" --template panel
+cd my-plugin
+pnpm install --ignore-scripts
+pnpm check
+pnpm test
+pnpm build
+pnpm run doctor
+pnpm package
+```
+
+Templates pin `@lomi-dev/plugin-cli@0.1.0-alpha.1` and
+`@lomi-dev/plugin-sdk@1.1.0-alpha.0` from npm. Commit the generated lockfile.
+No application sources, SDK checkout or Rust compiler are needed.
+
+In an interactive terminal, the generator asks for missing answers. Without a
+terminal, `--id` and `--name` are required. The default template is panel.
+`--json` emits schemaVersion 1 without prompts; `--help` lists arguments.
 The destination must be new or empty. Generation installs no dependencies and
-creates no Git repository. Existing user files are preserved on error or
-interruption. After installing dependencies, commit the new lockfile before CI.
+creates no Git repository. Errors and interruption preserve existing user files.
 
-Generate with `pnpm create lomi-plugin@0.1.0-alpha.1 my-plugin`. Projects pin
-SDK and CLI versions from npm; run `pnpm install --ignore-scripts`, then
-`pnpm check`, `pnpm test`, `pnpm build` and `pnpm run doctor`.
-This is an alpha using manual desktop import. M1 has no dev command. Apache-2.0.
+Import `package/` in Settings > Plugins, enable the plugin and approve its revision.
+This remains alpha with manual import; there is no `dev` command. Native desktop
+qualification is still pending. See the [author guide](https://github.com/lomi-dev/docs-app/blob/main/src/content/docs/plugins/quick-start.md).
+
+## Development
+
+```sh
+pnpm install --frozen-lockfile
+pnpm check
+pnpm test
+pnpm format:check
+pnpm test:archive
+```
+
+CI runs these checks on Linux, macOS and Windows. The archive test exercises all
+four templates outside the repository with actual npm dependencies. Publication
+uses the exact verified CI tarball. See [releases](docs/releases.md).
+
+## History
+
+Generator history was extracted from `lomi-dev/plugin-tools` at
+`83bde54105e15f64a463f1f63ec7d60065e9abcc` using `git subtree split`.
+Versions through 0.1.0-alpha.1 retain their original npm metadata and GitHub assets.
+Version 0.1.0-alpha.2 is the first release sourced from this repository.
+
+Apache-2.0.

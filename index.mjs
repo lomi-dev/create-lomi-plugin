@@ -11,6 +11,7 @@ import {
   writeFile,
   rm,
   link,
+  rename,
 } from "node:fs/promises";
 import { resolve, dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -62,6 +63,8 @@ export async function generate({
   try {
     const source = new URL(`./templates/${template}/`, import.meta.url);
     await cp(source, staging, { recursive: true });
+    // npm excludes .gitignore, so templates ship it under a neutral filename.
+    await rename(join(staging, "gitignore"), join(staging, ".gitignore"));
     async function substitute(path) {
       for (const item of await readdir(path, { withFileTypes: true })) {
         const file = join(path, item.name);

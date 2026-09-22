@@ -1,13 +1,12 @@
 {
   "name": "create-lomi-plugin",
-  "version": "0.1.0-alpha.1",
+  "version": "0.1.0-alpha.2",
   "description": "Create a Lomi plugin project",
   "type": "module",
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/lomi-dev/plugin-tools.git",
-    "directory": "packages/create-plugin"
+    "url": "git+https://github.com/lomi-dev/create-lomi-plugin.git"
   },
   "engines": {
     "node": ">=22.14.0"
@@ -24,5 +23,22 @@
   "publishConfig": {
     "access": "public",
     "tag": "next"
+  },
+  "homepage": "https://github.com/lomi-dev/create-lomi-plugin#readme",
+  "bugs": {
+    "url": "https://github.com/lomi-dev/create-lomi-plugin/issues"
+  },
+  "packageManager": "pnpm@11.25.0",
+  "scripts": {
+    "check": "node scripts/check.mjs",
+    "test": "node --test tests/*.test.mjs",
+    "test:archive": "node scripts/test-projects.mjs",
+    "test:registry": "node scripts/test-projects.mjs --registry",
+    "pack:release": "node scripts/pack.mjs",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
+  },
+  "devDependencies": {
+    "prettier": "3.9.6"
   }
 }

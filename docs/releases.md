@@ -1,5 +1,9 @@
 # Releases
 
+Rebrand candidate 0.1.0-alpha.3 is prepared locally and has not been published by
+this task. It requires SDK 1.1.0-alpha.1 and the Lomi runtime bridge. Publish
+SDK, CLI and generator in that order, then verify registry installations.
+
 Only `create-lomi-plugin` is published from this repository. The npm name remains
 unchanged. CLI releases belong to `lomi-dev/plugin-tools`, SDK releases to
 `lomi-dev/plugin-sdk`. A generator release does not require a CLI or SDK release.
@@ -39,3 +43,8 @@ Registry publication is an alpha distribution, not native desktop qualification.
 Rollback by restoring a previous explicit generator version; existing generated
 projects keep their own SDK/CLI pins and lockfiles. Correct changed package bytes
 with a new version rather than overwriting published artifacts.
+
+Local candidate archive tests accept `LOMI_SDK_TARBALL` and
+`LOMI_CLI_TARBALL`. Generated templates retain exact registry versions; only
+the disposable test projects receive archive overrides. Registry tests ignore
+these overrides and must pass separately after publication.

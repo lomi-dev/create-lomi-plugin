@@ -1,5 +1,8 @@
 # Create Lomi plugin
 
+The versions below are local rebrand candidates. Publish the compatible SDK and
+CLI before publishing this generator; npm installation requires those releases.
+
 The standalone generator for Lomi plugin projects. It owns the panel, sidebar,
 command and theme templates. [plugin-tools](https://github.com/lomi-dev/plugin-tools)
 owns the CLI; [plugin-sdk](https://github.com/lomi-dev/plugin-sdk) owns the contract.
@@ -8,7 +11,7 @@ Each repository has its own version and release procedure.
 Use Node 22.14+ and pnpm 11.25.0:
 
 ```sh
-pnpm create lomi-plugin@0.1.0-alpha.2 my-plugin --id example.my-plugin --name "My plugin" --template panel
+pnpm create lomi-plugin@0.1.0-alpha.3 my-plugin --id example.my-plugin --name "My plugin" --template panel
 cd my-plugin
 pnpm install --ignore-scripts
 pnpm check
@@ -18,8 +21,8 @@ pnpm run doctor
 pnpm package
 ```
 
-Templates pin `@lomi-dev/plugin-cli@0.1.0-alpha.1` and
-`@lomi-dev/plugin-sdk@1.1.0-alpha.0` from npm. Commit the generated lockfile.
+Templates pin `@lomi-dev/plugin-cli@0.1.0-alpha.2` and
+`@lomi-dev/plugin-sdk@1.1.0-alpha.1` from npm. Commit the generated lockfile.
 No application sources, SDK checkout or Rust compiler are needed.
 
 In an interactive terminal, the generator asks for missing answers. Without a
@@ -52,6 +55,7 @@ tested tarball using the manual [release procedure](docs/releases.md).
 Generator history was extracted from `lomi-dev/plugin-tools` at
 `83bde54105e15f64a463f1f63ec7d60065e9abcc` using `git subtree split`.
 Versions through 0.1.0-alpha.1 retain their original npm metadata and GitHub assets.
-Version 0.1.0-alpha.2 is the first release sourced from this repository.
+Version 0.1.0-alpha.2 was the first release sourced from this repository.
+Version 0.1.0-alpha.3 is the unpublished Lomi runtime rebrand candidate.
 
 Apache-2.0.

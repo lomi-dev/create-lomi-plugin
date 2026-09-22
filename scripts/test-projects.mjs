@@ -8,11 +8,21 @@ import {
   readdir,
 } from "node:fs/promises";
 import { tmpdir } from "node:os";
-import { join } from "node:path";
+import { join, resolve } from "node:path";
 import { createHash } from "node:crypto";
 import { pack, run, root } from "./pack.mjs";
 
 const registry = process.argv.includes("--registry");
+const candidates = registry
+  ? {}
+  : Object.fromEntries(
+      [
+        ["@lomi-dev/plugin-sdk", process.env.LOMI_SDK_TARBALL],
+        ["@lomi-dev/plugin-cli", process.env.LOMI_CLI_TARBALL],
+      ]
+        .filter(([, archive]) => archive)
+        .map(([name, archive]) => [name, resolve(archive)]),
+    );
 const metadata = JSON.parse(await readFile(join(root, "package.json"), "utf8"));
 const packed = registry ? undefined : await pack();
 const directory = await realpath(
@@ -91,6 +101,15 @@ for (const template of ["panel", "sidebar", "command", "theme"]) {
     ...pkg.devDependencies,
   }))
     assert.doesNotMatch(spec, /^(file:|link:|workspace:)/);
+  if (Object.keys(candidates).length) {
+    const installed = structuredClone(pkg);
+    for (const [name, archive] of Object.entries(candidates))
+      installed.devDependencies[name] = `file:${archive}`;
+    await writeFile(
+      join(project, "package.json"),
+      JSON.stringify(installed, null, 2) + "\n",
+    );
+  }
   run("pnpm", ["install", "--ignore-scripts"], project);
   run("pnpm", ["install", "--frozen-lockfile", "--ignore-scripts"], project);
   for (const command of ["check", "test", "build", "doctor", "package"])
@@ -108,7 +127,9 @@ for (const template of ["panel", "sidebar", "command", "theme"]) {
     checks: [
       "installed-generator",
       "no-overwrite",
-      "registry-dependencies",
+      Object.keys(candidates).length
+        ? "candidate-dependencies"
+        : "registry-dependencies",
       "frozen-install",
       "check",
       "test",
@@ -123,6 +144,16 @@ for (const [name, version] of [
   ["@lomi-dev/plugin-sdk", results[0].sdk],
   ["@lomi-dev/plugin-cli", results[0].cli],
 ]) {
+  if (candidates[name]) {
+    const bytes = await readFile(candidates[name]);
+    registryPackages.push({
+      name,
+      version,
+      file: candidates[name],
+      integrity: `sha512-${createHash("sha512").update(bytes).digest("base64")}`,
+    });
+    continue;
+  }
   const dist = JSON.parse(
     run("pnpm", ["view", `${name}@${version}`, "dist", "--json"], root),
   );
@@ -134,7 +165,11 @@ const report = {
   schemaVersion: 1,
   date: new Date().toISOString(),
   sourceCommit: run("git", ["rev-parse", "HEAD"], root).trim(),
-  distribution: registry ? "npm" : "generator-archive-with-npm-dependencies",
+  distribution: registry
+    ? "npm"
+    : Object.keys(candidates).length
+      ? "generator-archive-with-candidate-dependencies"
+      : "generator-archive-with-npm-dependencies",
   generatorSpec: spec,
   archive: packed?.report,
   registryPackages,

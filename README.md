@@ -3,7 +3,7 @@
 The standalone generator for Lomi plugin projects. It owns the panel, sidebar,
 command and theme templates. [plugin-tools](https://github.com/lomi-dev/plugin-tools)
 owns the CLI; [plugin-sdk](https://github.com/lomi-dev/plugin-sdk) owns the contract.
-Each repository has its own version and release workflow.
+Each repository has its own version and release procedure.
 
 Use Node 22.14+ and pnpm 11.25.0:
 
@@ -42,9 +42,10 @@ pnpm format:check
 pnpm test:archive
 ```
 
-CI runs these checks on Linux, macOS and Windows. The archive test exercises all
-four templates outside the repository with actual npm dependencies. Publication
-uses the exact verified CI tarball. See [releases](docs/releases.md).
+GitHub Actions is disabled in this repository. Run these checks manually on
+Linux, macOS and Windows before releasing. The archive test exercises all four
+templates outside the repository with actual npm dependencies. Publish the exact
+tested tarball using the manual [release procedure](docs/releases.md).
 
 ## History
 

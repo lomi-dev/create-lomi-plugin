@@ -1,7 +1,7 @@
 # Releases
 
-Rebrand candidate 0.1.0-alpha.3 is prepared locally and has not been published by
-this task. It requires SDK 1.1.0-alpha.1 and the Lomi runtime bridge. Publish
+Security distribution candidate 0.1.0-alpha.4 is prepared locally and has not been published by
+this task. It requires SDK 1.1.0-alpha.2 and the Lomi runtime bridge. Publish
 SDK, CLI and generator in that order, then verify registry installations.
 
 Only `create-lomi-plugin` is published from this repository. The npm name remains

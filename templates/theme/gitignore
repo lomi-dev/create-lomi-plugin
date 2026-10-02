@@ -3,3 +3,6 @@ package/
 artifacts/
 .lomi-*/
 package.lomi-lock/
+
+# Local build output ownership is tied to this checkout.
+*.lomi-owned.json

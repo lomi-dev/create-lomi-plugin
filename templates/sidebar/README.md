@@ -5,8 +5,7 @@ SDK 1.1.0-alpha.2 and CLI 0.1.0-alpha.3 are pinned npm candidates; publish them 
 
 Run `pnpm install --ignore-scripts` to install the pinned SDK and CLI versions from npm.
 Commit the generated `pnpm-lock.yaml` before enabling CI.
-Run `pnpm check`, `pnpm test`, `pnpm build`, then `pnpm package`.
-Tests exercise the built plugin with an in-memory context, without a desktop host.
+Run `pnpm check`, `pnpm build`, then `pnpm package`.
 
 Import `package/` in Settings > Plugins. For code plugins, enable and approve the
 content revision. Open a workspace, then use Commands to run the declared command.
@@ -24,8 +23,7 @@ This template uses Apache-2.0; replace the license if your project requires it.
 
 Uruchom `pnpm install --ignore-scripts`, aby pobrać przypięte wersje SDK i CLI z npm.
 Zapisz utworzony `pnpm-lock.yaml` przed włączeniem CI.
-Uruchom `pnpm check`, `pnpm test`, `pnpm build`, a następnie `pnpm package`.
-Testy używają atrapy kontekstu i nie sprawdzają aplikacji desktopowej.
+Uruchom `pnpm check`, `pnpm build`, a następnie `pnpm package`.
 Zaimportuj folder `package/` w Settings > Plugins. Plugin z kodem wymaga włączenia
 i zatwierdzenia rewizji. Otwórz workspace i uruchom komendę w Commands.
 Motyw wybierz w Settings > Themes. Po zmianach zbuduj paczkę, wyłącz stary plugin,

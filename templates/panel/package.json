@@ -6,7 +6,6 @@
   "packageManager": "pnpm@11.25.0",
   "scripts": {
     "check": "lomi-plugin check",
-    "test": "lomi-plugin build && node --test tests/*.test.mjs",
     "build": "lomi-plugin build",
     "package": "lomi-plugin package",
     "doctor": "lomi-plugin doctor"

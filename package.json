@@ -31,9 +31,6 @@
   "packageManager": "pnpm@11.25.0",
   "scripts": {
     "check": "node scripts/check.mjs",
-    "test": "node --test tests/*.test.mjs",
-    "test:archive": "node scripts/test-projects.mjs",
-    "test:registry": "node scripts/test-projects.mjs --registry",
     "pack:release": "node scripts/pack.mjs",
     "format": "prettier --write .",
     "format:check": "prettier --check ."

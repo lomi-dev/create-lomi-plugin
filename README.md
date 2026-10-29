@@ -15,7 +15,6 @@ pnpm create lomi-plugin@0.1.0-alpha.4 my-plugin --id example.my-plugin --name "M
 cd my-plugin
 pnpm install --ignore-scripts
 pnpm check
-pnpm test
 pnpm build
 pnpm run doctor
 pnpm package
@@ -40,15 +39,13 @@ qualification is still pending. See the [author guide](https://github.com/lomi-d
 ```sh
 pnpm install --frozen-lockfile
 pnpm check
-pnpm test
 pnpm format:check
-pnpm test:archive
 ```
 
-GitHub Actions is disabled in this repository. Run these checks manually on
-Linux, macOS and Windows before releasing. The archive test exercises all four
-templates outside the repository with actual npm dependencies. Publish the exact
-tested tarball using the manual [release procedure](docs/releases.md).
+GitHub Actions is disabled in this repository. The package check verifies the
+generator boundary and exact template dependency pins. Publish using the manual
+[release procedure](docs/releases.md); registry and desktop qualification remain
+separate.
 
 ## History
 

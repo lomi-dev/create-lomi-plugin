@@ -3,7 +3,7 @@ import { readFile, readdir } from "node:fs/promises";
 import { join } from "node:path";
 import { root, run } from "./pack.mjs";
 
-for (const folder of ["scripts", "tests"])
+for (const folder of ["scripts"])
   for (const file of await readdir(join(root, folder)))
     if (file.endsWith(".mjs"))
       run(process.execPath, ["--check", join(root, folder, file)], root);

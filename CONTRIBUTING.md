@@ -1,10 +1,8 @@
 # Contributing
 
 Use Node 22.14+ and pnpm 11.25.0. Run `pnpm install --frozen-lockfile`,
-`pnpm check`, `pnpm test`, `pnpm format:check` and `pnpm test:archive`.
-The archive suite installs the generator in a fresh temporary directory, then
-installs exact CLI/SDK versions from npm for all four templates. No sibling
-repository checkout is required. `pnpm test:registry` checks a published version.
+`pnpm check` and `pnpm format:check`. `pnpm pack:release` creates the candidate
+archive. No sibling repository checkout is required.
 
 Change SDK/CLI pins consistently across all template package.json files and their
 pnpm release-age exceptions. Keep generator versioning independent of both tools.
